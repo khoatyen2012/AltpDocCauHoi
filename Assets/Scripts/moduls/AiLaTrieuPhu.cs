@@ -60,4 +60,10 @@ public class AiLaTrieuPhu  {
         set { truecase = value; }
     }
 
+	string sound;
+
+	public string Sound {
+		get { return sound; }
+		set { sound = value; }
+	}
 }

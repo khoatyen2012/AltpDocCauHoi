@@ -68,6 +68,7 @@ public class TroGiupControlller : MonoBehaviour {
         try{
         if (GameController.instance.currentState == GameController.State.Question)
         {
+				SoundController.Instance.Stop();
             GameController.instance.currentState = GameController.State.Help;
             SoundController.Instance.PlayNamMuoi();
             StartCoroutine(WaitTimeNamMUoi(4f));
@@ -88,7 +89,7 @@ public class TroGiupControlller : MonoBehaviour {
         {
         if (GameController.instance.currentState == GameController.State.Question)
         {
-            
+				SoundController.Instance.Stop();
             GameController.instance.currentState = GameController.State.Help;
             SoundController.Instance.PlayKhanGia();
             btnHoiYKien.gameObject.GetComponent<tk2dSprite>().SetSprite("hoikhangia1");
@@ -110,7 +111,7 @@ public class TroGiupControlller : MonoBehaviour {
         {
             if (GameController.instance.currentState == GameController.State.Question)
             {
-
+				SoundController.Instance.Stop();
                 GameController.instance.currentState = GameController.State.Help;
 
                 btnHoiNguoiThan.gameObject.GetComponent<tk2dSprite>().SetSprite("nguoithan2");
@@ -133,6 +134,7 @@ public class TroGiupControlller : MonoBehaviour {
         {
             if (GameController.instance.currentState == GameController.State.Question)
             {
+				SoundController.Instance.Stop();
 				GameController.instance.currentState = GameController.State.Help;
                 btnDoiCauHoi.gameObject.GetComponent<tk2dSprite>().SetSprite("doicauhoi2");
                 btnDoiCauHoi.gameObject.GetComponent<BoxCollider>().enabled = false;

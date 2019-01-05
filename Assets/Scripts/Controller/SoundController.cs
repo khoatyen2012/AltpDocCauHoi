@@ -523,6 +523,15 @@ public class SoundController : MonoBehaviour
 		}
 	}
 
+	public void PlayQuestion(string pQue)
+	{
+		if (GameController.instance.checkVoulumOpen) {
+			tk2dUIAudioManager.Instance.Play ((AudioClip)Resources.Load ("Sounds/"+pQue));
+			audioSourceBGMusicCreated.Pause ();
+			ok = false;
+		}
+	}
+
     public void Stop()
     {
         tk2dUIAudioManager.Instance.curentStop();

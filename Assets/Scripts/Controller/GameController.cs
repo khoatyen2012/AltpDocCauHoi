@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour {
 
     string sText = "databasez";
     List<AiLaTrieuPhu> lst = new List<AiLaTrieuPhu>();
+	List<AiLaTrieuPhu> lstSounds = new List<AiLaTrieuPhu>();
     public tk2dTextMesh txtQuestion;
     public tk2dTextMesh txtDAA;
     public tk2dTextMesh txtDAB;
@@ -19,6 +20,7 @@ public class GameController : MonoBehaviour {
 	string stDAB = "";
 	string stDAC = "";
 	string stDAD = "";
+	string stSound="b";
 
     public tk2dTextMesh txtTime;
     public tk2dUIItem btnPower;
@@ -31,6 +33,7 @@ public class GameController : MonoBehaviour {
     int demframe = 0;
     public tk2dSprite spLaiVanSam;
 	public bool checkVoulumOpen=true;
+	public int mInApp;
 
     public enum State
     {
@@ -78,7 +81,10 @@ public class GameController : MonoBehaviour {
    
         SoundController.Instance.PlayBatDau();
 
-   
+
+		mInApp = DataController.GetInApp ();
+		mInApp++;
+		DataController.SaveInApp (mInApp);
   
         //suget();
      
@@ -91,7 +97,7 @@ public class GameController : MonoBehaviour {
 		{
         if (currentState == State.Question )
         {
-           
+				SoundController.Instance.Stop();
             currentState = State.PauseGame;
             PopupController.instance.ShowPopupStop(level - 1);
         }
@@ -328,18 +334,18 @@ public class GameController : MonoBehaviour {
 
    
 
-  IEnumerator WaitTimeQuanTrong(float time)
-  {
+  //IEnumerator WaitTimeQuanTrong(float time)
+ // {
       //do something...............
-      yield return new WaitForSeconds(time);
+    //  yield return new WaitForSeconds(time);
      // SoundController.Instance.Stop();
-      if (currentState == State.Question)
-      {
+     // if (currentState == State.Question)
+    //  {
           
-          SoundController.Instance.PlayQuanTrong();
-      }
+      //    SoundController.Instance.PlayQuanTrong();
+     // }
 
-  }
+ // }
 
   public void setDefault()
   {
@@ -353,14 +359,27 @@ public class GameController : MonoBehaviour {
     public void suget()
     {
         List<AiLaTrieuPhu> lstTMG = new List<AiLaTrieuPhu>();
-        foreach (AiLaTrieuPhu item in lst)
-        {
-            if (int.Parse(item.Level) != level)
-            {
-                continue;
-            }
-            lstTMG.Add(item);
-        }
+
+		if (mInApp <= 6 || mInApp%4==0) {
+			foreach (AiLaTrieuPhu item in lstSounds)
+			{
+				if (int.Parse(item.Level) != level)
+				{
+					continue;
+				}
+				lstTMG.Add(item);
+			}
+		} else {
+			foreach (AiLaTrieuPhu item in lst)
+			{
+				if (int.Parse(item.Level) != level)
+				{
+					continue;
+				}
+				lstTMG.Add(item);
+			}
+		}
+
 
         int chon = UnityEngine.Random.Range(0, lstTMG.Count - 1);
 
@@ -371,6 +390,7 @@ public class GameController : MonoBehaviour {
 		stDAB="B." +lstTMG[chon].Caseb;
 		stDAC="C." +lstTMG[chon].Casec;
 		stDAD="D." +lstTMG[chon].Cased;
+		stSound = "" + lstTMG [chon].Sound;
 
 		if (stQuestion.Length > 192) {
 			txtQuestion.scale = new Vector3 (0.4f,0.4f,0.4f);
@@ -435,7 +455,7 @@ public class GameController : MonoBehaviour {
             SoundController.Instance.PlayHoi5();
             
 
-            StartCoroutine(WaitTimeQuanTrong(3f));
+           // StartCoroutine(WaitTimeQuanTrong(3f));
         }
 
         if (level == 6)
@@ -460,7 +480,7 @@ public class GameController : MonoBehaviour {
         if (level == 10)
         {
             SoundController.Instance.PlayHoi10();
-            StartCoroutine(WaitTimeQuanTrong(2f));
+          //  StartCoroutine(WaitTimeQuanTrong(2f));
         }
         if (level == 11)
         {
@@ -484,7 +504,11 @@ public class GameController : MonoBehaviour {
       
         }
 
-        if (level == 1 || level == 6 || level == 11)
+		if (!stSound.Equals ("b")) {
+			StartCoroutine (WaitTimeDocCauHoi (2f));
+		}
+
+        if (level <= 6 || level == 11)
         {
             btnPower.gameObject.SetActive(false);
         }
@@ -502,6 +526,13 @@ public class GameController : MonoBehaviour {
         setLaiVanSam("hoi");
 
     }
+
+	IEnumerator WaitTimeDocCauHoi(float time)
+	{
+		//do something...............
+		yield return new WaitForSeconds(time);
+		SoundController.Instance.PlayQuestion (stSound);
+	}
 
     public void setLaiVanSam(string caij)
     {
@@ -606,13 +637,24 @@ public class GameController : MonoBehaviour {
             altp.Casec = "" + items[5];
             altp.Cased = "" + items[6];
             altp.Truecase = "" + items[7];
+			altp.Sound = "" + items[8];
             lst.Add(altp);
+			if ((!items [8].Equals ("b"))||(int.Parse(items[2])>=12)) {
+				lstSounds.Add (altp);
+			}
         }
     }
 
 
 
+	void PlayQuanTrong()
+	{
+		if (currentState == State.Question && GameController.instance.checkVoulumOpen && (!SoundController.Instance.CheckISPlay()))
+		{
 
+			SoundController.Instance.PlayQuanTrong();
+		}
+	}
 
 
     // Update is called once per frame
@@ -629,6 +671,13 @@ public class GameController : MonoBehaviour {
             }
             else
             {
+
+				if (level == 5 || level == 10) {
+					if (dTime == 40) {
+						PlayQuanTrong ();
+					}
+				}
+
                 dTime--;
                 txtTime.text = "" + dTime;
                 if (dTime <= 10)
