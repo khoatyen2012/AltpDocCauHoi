@@ -639,7 +639,7 @@ public class GameController : MonoBehaviour {
             altp.Truecase = "" + items[7];
 			altp.Sound = "" + items[8];
             lst.Add(altp);
-			if ((!items [8].Equals ("b"))||(int.Parse(items[2])>=12)) {
+			if ((!items [8].Equals ("b"))||(int.Parse(items[2])>=13)) {
 				lstSounds.Add (altp);
 			}
         }
