@@ -29,6 +29,22 @@ public class PopupController : MonoBehaviour {
     public float showPositionYNguoiThan;
     public float showPositionYIwin;
 
+	public Setting setting;
+
+
+	public void HidePopupSetting()
+	{
+		//StartCoroutine(ieMoveUp(setting.gameObject));
+		setting.transform.position = new Vector3(setting.gameObject.transform.position.x, 1000f, setting.gameObject.transform.position.z);
+
+	}
+
+	public void ShowPopupSetting()
+	{
+		setting.setData ();
+		setting.transform.position = new Vector3(setting.transform.position.x, showPositionYMainGame, 9f);
+	}
+
 
 	public void HidePopupTuVan()
 	{
@@ -183,6 +199,18 @@ public class PopupController : MonoBehaviour {
         }
 		popup.transform.position = new Vector3(popup.gameObject.transform.position.x, hidePostionY, popup.gameObject.transform.position.z);
     }
+
+	public void ShowMainGameTinh()
+	{
+		//StartCoroutine(ieMoveDownMain(mainGame.gameObject));
+		mainGame.transform.position = new Vector3(mainGame.gameObject.transform.position.x, showPositionYMainGame, mainGame.gameObject.transform.position.z);
+	}
+
+	public void HideMainGameTinh()
+	{
+		//StartCoroutine(ieMoveUpMain(mainGame.gameObject));
+		mainGame.transform.position = new Vector3(mainGame.gameObject.transform.position.x, hidePostionY, mainGame.gameObject.transform.position.z);
+	}
 
     public void ShowMainGame()
     {

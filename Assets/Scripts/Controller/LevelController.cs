@@ -37,7 +37,7 @@ public class LevelController : MonoBehaviour {
   
 
 
-    void CreateLevel(float positionCreate,int i,bool level)
+	void CreateLevel(float positionCreate,int i,bool ok,int level)
     {
  
         Level levelCreate = levelPrefab.Spawn<Level>
@@ -126,12 +126,16 @@ public class LevelController : MonoBehaviour {
 
 
 
-        if (level)
+		if (ok)
         {
             spriteLevel = sprite;
             sprite.SetSprite("levelchon");
             
         }
+		else if(i<level)
+		{
+			spriteLevel.SetSprite("nhapnhay");
+		}
         else if ( (i == 4) || (i == 9) || (i == 14))
         {
             sprite.SetSprite("quantrong");
@@ -156,7 +160,7 @@ public class LevelController : MonoBehaviour {
             {
                 ok = true;
             }
-            CreateLevel(positionCreate, i, ok);
+            CreateLevel(positionCreate, i, ok,level);
             positionCreate += distanceTreeCreate;
         }
     }

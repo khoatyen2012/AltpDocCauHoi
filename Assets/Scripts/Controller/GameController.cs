@@ -33,7 +33,13 @@ public class GameController : MonoBehaviour {
     int demframe = 0;
     public tk2dSprite spLaiVanSam;
 	public bool checkVoulumOpen=true;
+	public int checkRedQuestionOpen=0;
 	public int mInApp;
+
+	public GameObject Sun;
+	public float sleepMove;
+
+
 
     public enum State
     {
@@ -78,6 +84,7 @@ public class GameController : MonoBehaviour {
         btnPower.OnClick += btnPower_OnClick;
 
         maxlevel = DataController.GetHightScore();
+		checkRedQuestionOpen = DataController.GetRedQuestion ();
    
         SoundController.Instance.PlayBatDau();
 
@@ -360,7 +367,7 @@ public class GameController : MonoBehaviour {
     {
         List<AiLaTrieuPhu> lstTMG = new List<AiLaTrieuPhu>();
 
-		if (mInApp <= 6 || mInApp%4==0) {
+		if (checkRedQuestionOpen==0 && checkVoulumOpen==true) {
 			foreach (AiLaTrieuPhu item in lstSounds)
 			{
 				if (int.Parse(item.Level) != level)
@@ -523,9 +530,22 @@ public class GameController : MonoBehaviour {
         demframe = 0;
         txtTime.color = new Color(1, 1, 1, 1);
         txtTime.text = "" + dTime;
-        setLaiVanSam("hoi");
+        //setLaiVanSam("hoi");
+		if (checkRedQuestionOpen == 0 && checkVoulumOpen == true) {
+			setPlayLaiVanSam (false);
+			StartCoroutine (WaitTimeStopLVS (10f));
+		}
 
     }
+
+	IEnumerator WaitTimeStopLVS(float time)
+	{
+		//do something...............
+		yield return new WaitForSeconds(time);
+	
+			setPlayLaiVanSam(true);
+	
+	}
 
 	IEnumerator WaitTimeDocCauHoi(float time)
 	{
@@ -538,6 +558,15 @@ public class GameController : MonoBehaviour {
     {
         spLaiVanSam.SetSprite(caij);
     }
+	public void setPlayLaiVanSam(bool stop)
+	{
+		if (stop) {
+			spLaiVanSam.gameObject.transform.GetComponent<tk2dSpriteAnimator> ().Stop ();
+		} else {
+			spLaiVanSam.gameObject.transform.GetComponent<tk2dSpriteAnimator> ().Play ();
+		}
+		setLaiVanSam("hoi");
+	}
 
 
     public void helpNamMuoi()
@@ -715,7 +744,11 @@ public class GameController : MonoBehaviour {
                     SoundController.Instance.PlayHetGio();
                 }
             }
+		
             
         }
+		Sun.transform.RotateAround (Sun.transform.position, Vector3.back, sleepMove * Time.deltaTime);
+	
+
 	}
 }

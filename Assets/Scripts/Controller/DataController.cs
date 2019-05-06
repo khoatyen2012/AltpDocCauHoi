@@ -10,6 +10,26 @@ public class DataController
     private static string TAG_MAC = "mymac";
     private static string TAG_TOP = "mytop";
 	private static string TAG_INAPP = "inapp";
+	private static string TAG_READQUESTION = "redquestion";
+
+
+	public static int GetRedQuestion()
+	{
+		if (PlayerPrefs.HasKey(TAG_READQUESTION))
+		{
+			return PlayerPrefs.GetInt(TAG_READQUESTION);
+		}
+		else
+		{
+			return 0;
+		}
+	}
+
+	public static void SaveRedQuestion(int newHightScore)
+	{
+		PlayerPrefs.SetInt(TAG_READQUESTION, newHightScore);
+	}
+	//================================
 
 
 	public static int GetInApp()

@@ -106,6 +106,7 @@
      <Compile Include="Assets\Scripts\PopUp\PopUpStopGame.cs" />
      <Compile Include="Assets\Scripts\PopUp\PopUpWIYN.cs" />
      <Compile Include="Assets\Scripts\PopUp\PopUpWin.cs" />
+     <Compile Include="Assets\Scripts\PopUp\Setting.cs" />
      <Compile Include="Assets\Scripts\PopUp\TuVan.cs" />
      <Compile Include="Assets\Scripts\moduls\AiLaTrieuPhu.cs" />
      <Compile Include="Assets\Scripts\moduls\AltpUser.cs" />
