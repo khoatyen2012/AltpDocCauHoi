@@ -266,9 +266,9 @@ public class PopupController : MonoBehaviour {
  
     }
 
-    public void ShowPopupGameOver(int level,int maxlevel)
+	public void ShowPopupGameOver(int level,int maxlevel,int vrlevel)
     {
-        gameOver.setlevel(level, maxlevel);
+		gameOver.setlevel(level, maxlevel,vrlevel);
         StartCoroutine(ieMoveDown(gameOver.gameObject));
         HidePopupKhanGia();
         HidePopupNguoiThan();

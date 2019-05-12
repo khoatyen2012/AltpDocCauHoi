@@ -123,7 +123,7 @@ public class MainGame : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (GameController.instance.currentState == GameController.State.Start || GameController.instance.currentState == GameController.State.GameOver) {
+		if (GameController.instance.currentState == GameController.State.Start || GameController.instance.currentState == GameController.State.GameOver|| GameController.instance.currentState == GameController.State.PauseGame) {
 			sun.transform.RotateAround (sun.transform.position, Vector3.back, sleepMove * Time.deltaTime);
 		}
 	}

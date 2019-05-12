@@ -320,7 +320,7 @@ public class GameController : MonoBehaviour {
        DataController.SaveHightScore(tmgb);
        DataController.SaveHightSecond(dTime);
 		maxlevel = tmgb;
-       PopupController.instance.ShowPopupGameOver(tmgb, 60 - dTime);
+		PopupController.instance.ShowPopupGameOver(tmgb, 60 - dTime,level-1);
     
 
   }
@@ -740,7 +740,7 @@ public class GameController : MonoBehaviour {
 
                     DataController.SaveHightScore(tmgb);
                     DataController.SaveHightSecond(dTime);
-                    PopupController.instance.ShowPopupGameOver(tmgb,60-dTime);
+					PopupController.instance.ShowPopupGameOver(tmgb,60-dTime,level-1);
                     SoundController.Instance.PlayHetGio();
                 }
             }

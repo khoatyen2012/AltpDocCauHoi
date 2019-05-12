@@ -30,9 +30,16 @@ public class PopUpGameOver : MonoBehaviour {
          
     }
 
-    public void setlevel(int level, int maxlevel)
+	public void setlevel(int level, int maxlevel,int vrlevel)
     {
-        txtLevel.text = "Vượt qua: Câu " + level;
+		if(level==vrlevel)
+		{
+			txtLevel.text = "Đạt được: " + level;
+		}else
+		{
+			txtLevel.text = "Đạt được: "+vrlevel+" trở về mốc => " + level;
+		}
+
         txtMaxLevel.text = "Thời gian: " + maxlevel+" giây.";
 		AdmobControler.Instance.RequestInterstitial();
     }

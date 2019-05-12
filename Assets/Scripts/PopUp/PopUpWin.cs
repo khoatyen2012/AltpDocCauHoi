@@ -11,7 +11,7 @@ public class PopUpWin : MonoBehaviour {
         try
         {
             PopupController.instance.HidePopUpWin();
-            PopupController.instance.ShowPopupGameOver(15, 15);
+            PopupController.instance.ShowPopupGameOver(15, 15, 15);
         }
         catch (System.Exception)
         {
