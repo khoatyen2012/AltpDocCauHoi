@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour {
 
 	public GameObject Sun;
 	public float sleepMove;
+	List<AiLaTrieuPhu> lstTMG ;
 
 
 
@@ -365,7 +366,7 @@ public class GameController : MonoBehaviour {
 
     public void suget()
     {
-        List<AiLaTrieuPhu> lstTMG = new List<AiLaTrieuPhu>();
+         lstTMG = new List<AiLaTrieuPhu>();
 
 		if (checkRedQuestionOpen==0 && checkVoulumOpen==true) {
 			foreach (AiLaTrieuPhu item in lstSounds)

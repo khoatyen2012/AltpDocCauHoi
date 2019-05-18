@@ -116,7 +116,7 @@ public class PopUpNguoiThan : MonoBehaviour {
 
         btnContinute.gameObject.SetActive(true);
         txtTraLoi.gameObject.SetActive(true);
-        txtCauHoi.text = "Câu trả lời của người thân !";
+		txtCauHoi.text = "Trợ giúp của người thân !";
 
         int k = GameController.instance.truecase;
         int lv = GameController.instance.level;
